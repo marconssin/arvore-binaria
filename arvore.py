@@ -1,5 +1,7 @@
+#arvore.py
 #Implementação das classes
 
+# Classe que implementa um nó na árvore binária de busca
 class Noh:
     def __init__(self, nome, idade):
         self.nome = nome
@@ -7,6 +9,7 @@ class Noh:
         self.esq = None  
         self.dir = None 
 
+# Classe que implementa a árvore binária de busca
 class Bst:
     def __init__(self, noh_raiz = None):
         self.raiz = noh_raiz
@@ -66,16 +69,23 @@ class Bst:
             self.decOrder(atual.esq)
 
     def largura(self, atual):
-        if atual != None:
+        if atual is None:
+            return
+        fila = []
+        fila.append(atual)
+        while len(fila) > 0:
+            atual = fila.pop(0)
             print(f"Nome: {atual.nome.ljust(10)} - Idade: {atual.idade}")
-            self.largura(atual.esq)
-            self.largura(atual.dir)
+            if atual.esq is not None:
+                fila.append(atual.esq)
+            if atual.dir is not None:
+                fila.append(atual.dir)        
 
 # Fim da implementação das classes
 
 # Início do fluxo principal
 
-#Populando uma lista de dicionários para usar como dados de entrada
+# Populando uma lista de dicionários para usar como dados de entrada
 candidatos = [
     {"idade": 25, "nome": "pedro"},
     {"idade": 30, "nome": "marcos"},
@@ -98,6 +108,7 @@ for candidato in candidatos:
 no_raiz = arvore.raiz
 
 #Navegando na árvore binária criada
+print()
 print("In Order:")
 arvore.inOrder(no_raiz)
 print()
