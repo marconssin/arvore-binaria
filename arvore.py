@@ -1,7 +1,7 @@
-#arvore.py
-#Implementação das classes
+# arvore.py
+# Implementação das classes
 
-# Classe que implementa um nó na árvore binária de busca
+# Classe que implementa um nó na árvore binária de busca (bst)
 class Noh:
     def __init__(self, nome, idade):
         self.nome = nome
@@ -9,66 +9,66 @@ class Noh:
         self.esq = None  
         self.dir = None 
 
-# Classe que implementa a árvore binária de busca
+# Classe que implementa a árvore binária de busca (bst)
 class Bst:
     def __init__(self, noh_raiz = None):
         self.raiz = noh_raiz
     
-    def inserir (self, noh):
+    def inserir(self, noh):
         if self.raiz is None:
             self.raiz = noh
         else:
-            self._inserir_recursivo(self.raiz, noh)
+            self._inserir_arvore(self.raiz, noh)
     
-    def _inserir_recursivo(self, atual, novo_noh):
+    def _inserir_arvore(self, atual, novo_noh):
         if novo_noh.idade < atual.idade:
             if atual.esq is None:
                 atual.esq = novo_noh
             else:
-                self._inserir_recursivo(atual.esq, novo_noh)
+                self._inserir_arvore(atual.esq, novo_noh)
         else:
             if novo_noh.idade > atual.idade:
                 if atual.dir is None:
                     atual.dir = novo_noh
                 else:
-                    self._inserir_recursivo(atual.dir, novo_noh)
+                    self._inserir_arvore(atual.dir, novo_noh)
             else:
                 if novo_noh.nome < atual.nome:
                     if atual.esq is None:
                         atual.esq = novo_noh
                     else:
-                        self._inserir_recursivo(atual.esq, novo_noh)
+                        self._inserir_arvore(atual.esq, novo_noh)
                 else:
                     if atual.dir is None:
                         atual.dir = novo_noh
                     else:
-                        self._inserir_recursivo(atual.dir, novo_noh)
+                        self._inserir_arvore(atual.dir, novo_noh)
 
-    def inOrder(self, atual):
+    def em_ordem(self, atual):
         if atual != None:
-            self.inOrder(atual.esq)
+            self.em_ordem(atual.esq)
             print(f"Nome: {atual.nome.ljust(10)} - Idade: {atual.idade}") 
-            self.inOrder(atual.dir)
+            self.em_ordem(atual.dir)
   
-    def preOrder(self, atual):
+    def pre_ordem(self, atual):
         if atual != None:
             print(f"Nome: {atual.nome.ljust(10)} - Idade: {atual.idade}")
-            self.preOrder(atual.esq)
-            self.preOrder(atual.dir)
+            self.pre_ordem(atual.esq)
+            self.pre_ordem(atual.dir)
        
-    def posOrder(self, atual):
+    def pos_ordem(self, atual):
         if atual != None:
-            self.posOrder(atual.esq)
-            self.posOrder(atual.dir)
+            self.pos_ordem(atual.esq)
+            self.pos_ordem(atual.dir)
             print(f"Nome: {atual.nome.ljust(10)} - Idade: {atual.idade}")
 
-    def decOrder(self, atual):
+    def dec_ordem(self, atual):
         if atual != None:
-            self.decOrder(atual.dir)
+            self.dec_ordem(atual.dir)
             print(f"Nome: {atual.nome.ljust(10)} - Idade: {atual.idade}")
-            self.decOrder(atual.esq)
+            self.dec_ordem(atual.esq)
 
-    def largura(self, atual):
+    def em_largura(self, atual):
         if atual is None:
             return
         fila = []
@@ -99,28 +99,26 @@ candidatos = [
     {"idade": 43, "nome": "julia"},
 ]
 
-#Criando a árvore binária e populando com a lista criada anteriormente
+# Criando a árvore binária e populando com a lista criada anteriormente
 arvore = Bst()
 for candidato in candidatos:
     noh = Noh(candidato["nome"].lower(), candidato["idade"])
     arvore.inserir(noh)
 
-no_raiz = arvore.raiz
-
-#Navegando na árvore binária criada
+# Navegando na árvore binária criada
 print()
 print("In Order:")
-arvore.inOrder(no_raiz)
+arvore.em_ordem(arvore.raiz)
 print()
 print("Pre Order:")
-arvore.preOrder(no_raiz)
+arvore.pre_ordem(arvore.raiz)
 print()
 print("Pos Order:")
-arvore.posOrder(no_raiz)
+arvore.pos_ordem(arvore.raiz)
 print()
 print("Dec Order:")
-arvore.decOrder(no_raiz)
+arvore.dec_ordem(arvore.raiz)
 print()
 print("Largura:")
-arvore.largura(no_raiz)
+arvore.em_largura(arvore.raiz)
 print()
